@@ -5,7 +5,8 @@
   "main": "server.mjs",
   "type": "module",
   "scripts": {
-    "server": "node server.mjs --presets env"
+    "server": "node server.mjs --presets env",
+    "start": "node server.mjs"
   },
   "author": "David Yang",
   "license": "MIT",
