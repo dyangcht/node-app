@@ -1,0 +1,19 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  labels:
+    app: node-app
+    app.kubernetes.io/component: node-app
+    app.kubernetes.io/instance: node-app
+  name: node-app
+  namespace: streams
+spec:
+  host: node-app-streams.apps.cluster-44d9.sandbox1656.opentlc.com
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+  to:
+    kind: Service
+    name: node-app
+    weight: 100
+  wildcardPolicy: None

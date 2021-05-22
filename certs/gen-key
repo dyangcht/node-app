@@ -1,0 +1,23 @@
+#!/bin/bash
+
+if [ $# -lt 2 ]
+  then
+    echo "Usage: gen-key <servicename.appdomainname> <servicename>"
+    exit 1
+fi
+# generate certificate
+openssl req -x509 -newkey rsa:4096 -sha256 -nodes -keyout tls.key -out tls.crt -subj "/CN=$1" -days 365
+
+# create an edge route
+oc create route edge --service=$2 --cert=tls.crt --key=tls.key --hostname=$1
+
+exit 0
+# Signed by root CA
+openssl genrsa -out rootCA.key 4096
+openssl req -x509 -new -nodes -key rootCA.key -sha256 -days 1024 -out rootCA.crt -subj "/CN=apps.cluster-44d9.sandbox1656.opentlc.com"
+# one command instead
+# openssl req -x509 -newkey rsa:4096 -sha256 -nodes -keyout rootCA.key -out rootCA.crt -subj "/CN=nginx-nginx.apps.cluster-e365.e365.sandbox1789.opentlc.com" -days 1024
+openssl req -sha256 -newkey rsa:4096 -nodes -keyout tls.key -subj "/C=TW/ST=TP/O=RH, Inc./CN=node-app-streams.apps.cluster-44d9.sandbox1656.opentlc.com" -out tls.csr
+openssl x509 -req -in tls.csr -CA rootCA.crt -CAkey rootCA.key -CAcreateserial -out tls.crt -days 500 -sha256
+oc create route edge --service=node-app --cert=tls.crt --key=tls.key --ca-cert=rootCA.crt --hostname=node-app-streams.apps.cluster-44d9.sandbox1656.opentlc.com
+
