@@ -5,7 +5,7 @@
   "main": "server.mjs",
   "type": "module",
   "scripts": {
-    "server": "babel-watch server.js --presets env"
+    "server": "node server.mjs --presets env"
   },
   "author": "Brad Traversy",
   "license": "MIT",
