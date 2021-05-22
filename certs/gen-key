@@ -9,7 +9,9 @@ fi
 openssl req -x509 -newkey rsa:4096 -sha256 -nodes -keyout tls.key -out tls.crt -subj "/CN=$1" -days 365
 
 # create an edge route
-oc create route edge --service=$2 --cert=tls.crt --key=tls.key --hostname=$1
+# oc create route passthrough --service=$2 --hostname=$1
+oc create route reencrypt --service=$2 --dest-ca-cert=rootCA.crt --hostname=$1
+# oc create route edge --service=$2 --cert=tls.crt --key=tls.key --hostname=$1
 
 exit 0
 # Signed by root CA

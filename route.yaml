@@ -10,7 +10,8 @@ metadata:
 spec:
   host: node-app-streams.apps.cluster-44d9.sandbox1656.opentlc.com
   tls:
-    termination: edge
+    # termination: edge
+    termination: reencrypt
     insecureEdgeTerminationPolicy: Redirect
   to:
     kind: Service
