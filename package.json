@@ -2,7 +2,7 @@
   "name": "node_babel_starter",
   "version": "1.0.0",
   "description": "Simple node/express server that uses Babel",
-  "main": "server.js",
+  "main": "server.mjs",
   "type": "module",
   "scripts": {
     "server": "babel-watch server.js --presets env"
