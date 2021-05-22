@@ -1,5 +1,5 @@
 import express from 'express';
-import { welcome } from './welcome';
+import { welcome } from './welcome/index.mjs';
 
 const app = express();
 
